@@ -24,6 +24,8 @@ node() {
 }
 
 def deploy(war, id) {
+    def src = 'https://github.com/kishorebhatia/jenkins-demo/'
+    git url: src
     sh "./cfdeploy.sh"
     //sh "cp ${war} /tmp/webapps/${id}.war"
 }
