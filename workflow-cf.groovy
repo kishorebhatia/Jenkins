@@ -1,5 +1,5 @@
 stage name: 'Build'
-node {
+node() {
     // COMPILE AND JUNIT
     echo "INFO - Starting build phase"
     def src = 'https://github.com/spring-projects/spring-petclinic'
@@ -24,11 +24,11 @@ node() {
 }
 
 def deploy(war, id) {
-    def src = 'https://github.com/kishorebhatia/jenkins-demo/'
-    git url: src
-    sh "chmod +x cfdeploy.sh"
-    sh "./cfdeploy.sh"
-    //sh "cp ${war} /tmp/webapps/${id}.war"
+   // def src = 'https://github.com/kishorebhatia/jenkins-demo/'
+    //git url: src
+    //sh "chmod +x cfdeploy.sh"
+    //sh "./cfdeploy.sh"
+    sh "cf push petclinic -p ${war}"
 }
 // FUNCTIONS
 
