@@ -1,3 +1,4 @@
+stage name: 'Build'
 node {
     // COMPILE AND JUNIT
     echo "INFO - Starting build phase"
@@ -5,7 +6,7 @@ node {
 
     git url: src
 
-    ensureMaven()
+    //ensureMaven()
     sh 'mvn -o clean package'
     sh 'tar -c -f src.tar src/ pom.xml'
     archive 'src.tar, target/petclinic.war'
@@ -13,6 +14,19 @@ node {
     echo "INFO - Ending build phase"
 }
 
+stage name: 'Deploy', concurrency: 1
+node() {
+    //sh "wget -O - -S ${jettyUrl}staging/"
+    //unarchive mapping: ['target/x.war' : 'x.war']
+    deploy 'target/petclinic.war', 'development'
+    echo "Deployed to Development Env"
+    //echo "Deployed to ${jettyUrl}production/"
+}
+
+def deploy(war, id) {
+    sh "./cfdeploy"
+    //sh "cp ${war} /tmp/webapps/${id}.war"
+}
 // FUNCTIONS
 
 
