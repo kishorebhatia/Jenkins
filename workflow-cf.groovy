@@ -24,7 +24,7 @@ node() {
 }
 
 def deploy(war, id) {
-    sh "./cfdeploy"
+    sh "./cfdeploy.sh"
     //sh "cp ${war} /tmp/webapps/${id}.war"
 }
 // FUNCTIONS
