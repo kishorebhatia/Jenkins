@@ -21,6 +21,7 @@ node() {
 }
 
 stage name: 'QA', concurrency: 1
+checkpoint 'QA Checkpoint'
 node() {
     // DEPLOY ON THE QA SERVER
     echo "INFO - Starting QA Deploy"
@@ -28,7 +29,7 @@ node() {
 }
 
 stage name: 'Staging', concurrency: 1
-checkpoint 'CHOOSE TO ENTER STAGING'
+checkpoint 'STAGING Checkpoint'
 
 input message: "Does QA look good? If yes, we deploy on staging.", ok: "DEPLOY TO STAGING!"
 
