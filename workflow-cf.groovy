@@ -14,15 +14,29 @@ node() {
     echo "INFO - Ending build phase"
 }
 
-stage name: 'Deploy', concurrency: 1
+stage name: 'DevTest', concurrency: 1
 node() {
-    //sh "wget -O - -S ${jettyUrl}staging/"
-    //unarchive mapping: ['target/x.war' : 'x.war']
     deploy 'target/petclinic.war', 'development'
     echo "Deployed to Development Env"
-    //echo "Deployed to ${jettyUrl}production/"
 }
 
+stage name: 'QA', concurrency: 1
+node() {
+    // DEPLOY ON THE QA SERVER
+    echo "INFO - Starting QA Deploy"
+    echo "INFO - QA Deploy complete"
+}
+
+stage name: 'Staging', concurrency: 1
+checkpoint 'CHOOSE TO ENTER STAGING'
+
+input message: "Does QA look good? If yes, we deploy on staging.", ok: "DEPLOY TO STAGING!"
+
+node() {
+    // DEPLOY ON STAGING
+    echo "INFO - Starting Staging Deploy"
+    echo "INFO - Staging Deploy complete"
+}
 def deploy(war, id) {
    // def src = 'https://github.com/kishorebhatia/jenkins-demo/'
     //git url: src
