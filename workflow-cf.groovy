@@ -39,10 +39,10 @@ node() {
     echo "INFO - Staging Deploy complete"
 }
 def deploy(war, id) {
-   // def src = 'https://github.com/kishorebhatia/jenkins-demo/'
-    //git url: src
-    //sh "chmod +x cfdeploy.sh"
-    //sh "./cfdeploy.sh"
+    def src = 'https://github.com/kishorebhatia/jenkins-demo/'
+    git url: src
+    sh "chmod +x cfdeploy.sh"
+    sh "./cfdeploy.sh"
     sh "cf push petclinic -p ${war}"
 }
 // FUNCTIONS
